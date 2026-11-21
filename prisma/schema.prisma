@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../server/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model CaseStudy {
+  id          Int          @id @default(autoincrement())
+  slug        String       @unique
+  name        String
+  category    String
+  description String
+  brief       String
+  credit      String
+  deliverable String
+  palette     String[]
+  wordmark    String
+  typeface    String
+  position    Int
+  published   Boolean      @default(false)
+  revision    Int          @default(1)
+  assets      BrandAsset[]
+  variants    Variant[]
+
+  @@index([published, position])
+}
+
+model BrandAsset {
+  id        Int       @id @default(autoincrement())
+  caseId    Int
+  title     String
+  kind      String
+  alt       String
+  credit    String
+  position  Int
+  width     Int
+  height    Int
+  full      Bytes
+  thumbnail Bytes
+  project   CaseStudy @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  variants  Variant[]
+
+  @@index([caseId, position])
+}
+
+model Variant {
+  id          Int         @id @default(autoincrement())
+  caseId      Int
+  assetId     Int?
+  name        String
+  description String
+  color       String
+  position    Int
+  project     CaseStudy   @relation(fields: [caseId], references: [id], onDelete: Cascade)
+  asset       BrandAsset? @relation(fields: [assetId], references: [id], onDelete: SetNull)
+
+  @@index([caseId, position])
+  @@index([assetId])
+}
+
+model Admin {
+  id           Int    @id
+  email        String @unique
+  passwordHash String
+}
+
+model Session {
+  sid    String   @id @db.VarChar
+  sess   Json     @db.Json
+  expire DateTime @db.Timestamp(6)
+
+  @@index([expire])
+  @@map("session")
+}
