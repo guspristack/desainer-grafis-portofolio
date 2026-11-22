@@ -1,21 +1,28 @@
 # Sora Anindya · Portofolio Desainer Grafis
 
-Portofolio full-stack dan studio untuk persona fiktif Sora Anindya dari Ruang Karya. Galeri publik mempertahankan grid karya, filter kategori, detail studi kasus, dan panduan identitas Temu.
+Proyek portofolio full-stack untuk persona fiktif dari seri Ruang Karya karya GuspriStack.
 
-## Studio
+[Lihat demo desain di GuspriStack Showcase](https://showcase.guspriaman.com/portofolio/desain-grafis/)
 
-- Masuk di `/admin` untuk membuat, menyunting, atau menyembunyikan studi kasus. Isi ringkasan, cerita, kredit, hasil, palet, wordmark, dan tipografi.
-- Unggah aset sampul, logo, mockup, tipografi, atau perbandingan varian. Masukkan teks alternatif, kredit, dan urutan tampil. Sampul pertama mengikuti urutan tampilan aset.
-- Buat varian dengan nama, warna, deskripsi, urutan, dan pilihan gambar dari studi kasus yang sama. Draf beserta asetnya dapat dibuka oleh admin.
+## Fitur
 
-Aset JPEG, PNG, dan WebP statis diterima hingga 12 MB dan 30 megapiksel. Server mengolahnya menjadi WebP untuk tampilan galeri dan penampil gambar. PostgreSQL menyimpan gambar olahan, metadata, studi kasus, varian, dan sesi.
+- Galeri karya dengan filter kategori dan studi kasus identitas visual.
+- Pengelolaan studi kasus, aset merek, dan varian karya.
 
-## Menjalankan secara lokal
+## Teknologi
 
-Siapkan Node.js 24 dan PostgreSQL. Salin `.env.example` ke `.env` dan isi `DATABASE_URL`, `SESSION_SECRET`, `ADMIN_EMAIL`, dan `ADMIN_PASSWORD`. Gunakan kata sandi admin unik minimal 16 karakter.
+| Bagian | Teknologi |
+| --- | --- |
+| Bahasa | TypeScript, HTML, dan CSS |
+| Frontend | React, Vite, dan CSS Modules |
+| Backend | Node.js 24 dan Express |
+| Database | PostgreSQL dan Prisma ORM |
+
+## Coba secara lokal
+
+Siapkan Node.js 24 dan database PostgreSQL lokal. Salin [.env.example](.env.example) ke `.env` dan isi koneksi database, rahasia sesi acak, serta kredensial admin lokal. Gunakan kata sandi admin dengan minimal 16 karakter.
 
 ```sh
-node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"
 npm ci
 npm run db:migrate
 npm run db:seed
@@ -23,11 +30,16 @@ npm run admin:provision
 npm run dev
 ```
 
-Perintah pertama membuat nilai acak untuk `SESSION_SECRET`. Pengisian awal menyediakan empat studi kasus contoh. `admin:provision` membuat atau mereset akun admin dan mengakhiri sesi sebelumnya. Mode pengembangan tersedia pada [portofolio di port 5177](http://127.0.0.1:5177/) dan [studio admin](http://127.0.0.1:5177/admin).
-
-Untuk hasil build lokal, atur `APP_ORIGIN=http://127.0.0.1:4177`, jalankan `npm run build`, lalu `npm start`. Express menyajikan frontend dan API dari origin yang sama. Frontend memakai React, Vite, TypeScript, dan CSS Modules. Prisma mengelola migrasi dan akses PostgreSQL.
+Buka [portofolio lokal](http://127.0.0.1:5177/) atau [panel admin](http://127.0.0.1:5177/admin). Simpan konfigurasi asli di `.env` dan data privat seperti ekspor database atau unggahan pribadi di luar repositori atau di folder `.local/`.
 
 ## Kredit
 
-- Pengembangan oleh [guspriaman](https://github.com/guspriaman) untuk [guspriStack](https://github.com/guspristack).
-- Desain portofolio, potret, dan mockup contoh berasal dari prototipe Ruang Karya. Kredit per karya contoh memakai persona fiktif Sora Anindya.
+- Pemilik dan pengembang proyek — [guspriaman](https://guspriaman.com/).
+- Studio pengembang — [GuspriStack](https://github.com/guspristack).
+- Materi contoh dari prototipe Ruang Karya — Desain grid, potret, dan mockup identitas Temu.
+
+## Lisensi
+
+Kode dan materi contoh orisinal milik guspriaman tersedia di bawah [PolyForm Noncommercial License 1.0.0](LICENSE). Anda boleh menggunakan, memodifikasi, dan membagikan materi tersebut untuk tujuan nonkomersial sesuai lisensi, dengan menyertakan [pemberitahuan hak cipta](NOTICE).
+
+Penjualan proyek atau versi modifikasinya, distribusi berbayar, dan penggunaan komersial memerlukan izin tertulis dari guspriaman. Dependensi dan aset pihak ketiga mengikuti lisensinya masing-masing.
